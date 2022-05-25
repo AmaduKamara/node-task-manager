@@ -15,12 +15,33 @@ const User = mongoose.model("User", {
   },
 });
 
-const amkam = new User({ name: "Amkam", age: 27 });
+// const amkam = new User({ name: "Amkam", age: "Samuel" });
 
-amkam
+// amkam
+//   .save()
+//   .then((amkam) => {
+//     console.log(amkam);
+//   })
+//   .catch((err) => {
+//     console.log("Error: " + err);
+//   });
+
+const Task = mongoose.model("Task", {
+  description: {
+    type: String,
+    required: true,
+  },
+  completed: {
+    type: Boolean,
+  },
+});
+
+const todo = new Task({ description: "Learn Node", completed: false });
+
+todo
   .save()
-  .then((amkam) => {
-    console.log(amkam);
+  .then((todo) => {
+    console.log(todo);
   })
   .catch((err) => {
     console.log("Error: " + err);
