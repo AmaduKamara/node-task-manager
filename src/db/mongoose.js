@@ -44,34 +44,36 @@ const User = mongoose.model("User", {
   },
 });
 
-const amkam = new User({ name: " Ranjeet", email: "ranjeet2@email.com     ", age: 30, password: "test12345"});
+// const amkam = new User({ name: " Ranjeet", email: "ranjeet2@email.com     ", age: 30, password: "test12345"});
 
-amkam
-  .save()
-  .then((amkam) => {
-    console.log(amkam);
-  })
-  .catch((err) => {
-    console.log("Error: " + err);
-  });
-
-// const Task = mongoose.model("Task", {
-//   description: {
-//     type: String,
-//     required: true,
-//   },
-//   completed: {
-//     type: Boolean,
-//   },
-// });
-
-// const todo = new Task({ description: "Learn Node", completed: false });
-
-// todo
+// amkam
 //   .save()
-//   .then((todo) => {
-//     console.log(todo);
+//   .then((amkam) => {
+//     console.log(amkam);
 //   })
 //   .catch((err) => {
 //     console.log("Error: " + err);
 //   });
+
+const Task = mongoose.model("Task", {
+  description: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+});
+
+const todo = new Task({ description: "Learn The MERN Stack", completed: false });
+
+todo
+  .save()
+  .then((todo) => {
+    console.log(todo);
+  })
+  .catch((err) => {
+    console.log("Error: " + err);
+  });
