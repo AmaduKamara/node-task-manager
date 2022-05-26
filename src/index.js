@@ -41,6 +41,9 @@ app.get("/users/:id", (req, res) => {
 
   User.findById(_id)
     .then((user) => {
+      if (!user) {
+        return res.status(404).send();
+      }
       res.send(user);
     })
     .catch((err) => {
@@ -59,6 +62,17 @@ app.post("/tasks", (req, res) => {
     })
     .catch((err) => {
       res.status(400).send(err);
+    });
+});
+
+// GET /tasks
+app.get("/tasks", (req, res) => {
+  Task.find({})
+    .then((tasks) => {
+      res.send(tasks);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 
