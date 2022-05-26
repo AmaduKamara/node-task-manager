@@ -35,6 +35,19 @@ app.get("/users", (req, res) => {
     });
 });
 
+// GET /users/:id
+app.get("/users/:id", (req, res) => {
+  const _id = req.params.id;
+
+  User.findById(_id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 // POST /tasks
 app.post("/tasks", (req, res) => {
   const task = new Task(req.body);
