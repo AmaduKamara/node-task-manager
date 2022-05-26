@@ -21,7 +21,7 @@ const User = mongoose.model("User", {
   },
   age: {
     type: Number,
-    required: true,
+    default: 0,
     validate(value) {
       if (value < 0) {
         throw new Error("Age must be a positive number");
@@ -30,7 +30,7 @@ const User = mongoose.model("User", {
   },
 });
 
-const amkam = new User({ name: "Amadu Kamara", email: "amadu@email.com", age: 26 });
+const amkam = new User({ name: "Web Avenger 2", email: "webavenger2@email.com"});
 
 amkam
   .save()
