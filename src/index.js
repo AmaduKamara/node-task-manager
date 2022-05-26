@@ -20,7 +20,7 @@ app.post("/users", (req, res) => {
       res.send(user);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(400).send(err);
     });
 });
 
@@ -34,7 +34,7 @@ app.post("/tasks", (req, res) => {
       res.send(task);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(400).send(err);
     });
 });
 
