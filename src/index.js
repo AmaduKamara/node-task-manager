@@ -76,6 +76,23 @@ app.get("/tasks", (req, res) => {
     });
 });
 
+// GET /tasks/:id
+app.get("/tasks/:id", (req, res) => {
+  const _id = req.params.id;
+
+  Task.findById(_id)
+    .then((task) => {
+      if (!task) {
+        return res.status(404).send();
+      }
+
+      res.send(task);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
