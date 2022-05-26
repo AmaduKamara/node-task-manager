@@ -9,10 +9,13 @@ const User = mongoose.model("User", {
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
+    trim: true,
+    lowercase: true,
     validate(value) {
       if (!validator.isEmail(value)) {
         throw new Error("Email is invalid");
@@ -30,7 +33,7 @@ const User = mongoose.model("User", {
   },
 });
 
-const amkam = new User({ name: "Web Avenger 2", email: "webavenger2@email.com"});
+const amkam = new User({ name: "      The Web Avenger     ", email: "            webavenger2@email.com     "});
 
 amkam
   .save()
