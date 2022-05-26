@@ -12,37 +12,42 @@ const User = mongoose.model("User", {
   age: {
     type: Number,
     required: true,
+    validate(value) {
+      if(value < 0) {
+        throw new Error("Age must be a positive number")
+      }
+    }
   },
 });
 
-// const amkam = new User({ name: "Amkam", age: "Samuel" });
+const amkam = new User({ name: "Samuel Amkam", age: 21 });
 
-// amkam
-//   .save()
-//   .then((amkam) => {
-//     console.log(amkam);
-//   })
-//   .catch((err) => {
-//     console.log("Error: " + err);
-//   });
-
-const Task = mongoose.model("Task", {
-  description: {
-    type: String,
-    required: true,
-  },
-  completed: {
-    type: Boolean,
-  },
-});
-
-const todo = new Task({ description: "Learn Node", completed: false });
-
-todo
+amkam
   .save()
-  .then((todo) => {
-    console.log(todo);
+  .then((amkam) => {
+    console.log(amkam);
   })
   .catch((err) => {
     console.log("Error: " + err);
   });
+
+// const Task = mongoose.model("Task", {
+//   description: {
+//     type: String,
+//     required: true,
+//   },
+//   completed: {
+//     type: Boolean,
+//   },
+// });
+
+// const todo = new Task({ description: "Learn Node", completed: false });
+
+// todo
+//   .save()
+//   .then((todo) => {
+//     console.log(todo);
+//   })
+//   .catch((err) => {
+//     console.log("Error: " + err);
+//   });
