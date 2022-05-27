@@ -17,20 +17,19 @@ app.post("/users", async (req, res) => {
   try {
     await user.save();
     res.status(201).send(user);
-  } catch (error) {
-    res.status(400).send(error)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
 // GET /users
-app.get("/users", (req, res) => {
-  User.find({})
-    .then((users) => {
-      res.send(users);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 // GET /users/:id
