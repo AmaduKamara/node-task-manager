@@ -60,31 +60,28 @@ app.post("/tasks", async (req, res) => {
 });
 
 // GET /tasks
-app.get("/tasks", (req, res) => {
-  Task.find({})
-    .then((tasks) => {
-      res.send(tasks);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+app.get("/tasks", async (req, res) => {
+  try {
+    const tasks = await Task.find({});
+    res.send(tasks);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 // GET /tasks/:id
-app.get("/tasks/:id", (req, res) => {
+app.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
+  try {
+    const task = await Task.findById(_id);
+    if (!task) {
+      return res.status(404).send();
+    }
 
-  Task.findById(_id)
-    .then((task) => {
-      if (!task) {
-        return res.status(404).send();
-      }
-
-      res.send(task);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+    res.send(task);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 app.listen(PORT, () => {
