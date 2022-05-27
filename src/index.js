@@ -112,6 +112,34 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
+// PATCH /tasks/:id
+app.patch("/tasks/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["description", "completed"];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(404).send({ error: "Invalid update!" });
+  }
+
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!task) {
+      return res.status(404).send();
+    }
+
+    res.send(task);
+  } catch (err) {
+    res.status(400).send();
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
