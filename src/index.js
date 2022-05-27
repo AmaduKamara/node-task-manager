@@ -39,26 +39,24 @@ app.get("/users/:id", async (req, res) => {
   try {
     const user = await User.findById(_id);
     if (!user) {
-        return res.status(404).send();
-      }
-      res.send(user);
+      return res.status(404).send();
+    }
+    res.send(user);
   } catch (err) {
-     res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
 // POST /tasks
-app.post("/tasks", (req, res) => {
+app.post("/tasks", async (req, res) => {
   const task = new Task(req.body);
 
-  task
-    .save()
-    .then(() => {
-      res.status(201).send(task);
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
+  try {
+    await task.save();
+    res.status(201).send(task);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 // GET /tasks
